@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Colora l'Astronauta</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+  <style>
+    body { text-align: center; font-family: sans-serif; }
+    canvas { border: 1px solid #ccc; margin-top: 10px; touch-action: none; }
+    .color-palette { margin-top: 15px; }
+    .color { width: 30px; height: 30px; border: 1px solid #000; display: inline-block; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h1>Colora l'Astronauta</h1>
+
+  <canvas id="drawingCanvas" width="400" height="400"></canvas>
+
+  <div class="color-palette">
+    <div class="color" style="background: red;" onclick="setColor('red')"></div>
+    <div class="color" style="background: green;" onclick="setColor('green')"></div>
+    <div class="color" style="background: blue;" onclick="setColor('blue')"></div>
+    <div class="color" style="background: yellow;" onclick="setColor('yellow')"></div>
+    <div class="color" style="background: pink;" onclick="setColor('pink')"></div>
+    <div class="color" style="background: black;" onclick="setColor('black')"></div>
+  </div>
+
+  <script>
+    var canvas = new fabric.Canvas('drawingCanvas');
+    var currentColor = 'black';
+
+    // Cambia qui il nome del tuo file immagine se è diverso
+    fabric.Image.fromURL('astronauta.png', function(img) {
+      img.scaleToWidth(400);
+      canvas.add(img);
+    });
+
+    canvas.on('mouse:down', function(opt) {
+      var pointer = canvas.getPointer(opt.e);
+      var circle = new fabric.Circle({
+        radius: 10,
+        fill: currentColor,
+        left: pointer.x,
+        top: pointer.y
+      });
+      canvas.add(circle);
+    });
+
+    function setColor(color) {
+      currentColor = color;
+    }
+  </script>
+
+</body>
+</html>
